@@ -2,16 +2,16 @@
 let functions = require('firebase-functions');
 // Import and initialize the Firebase Admin SDK.
 let admin = require('firebase-admin');
-admin.initializeApp(functions.config().firebase);
+admin.initializeApp();
 // Create and Deploy Your First Cloud Functions
 // sending card notification on lost
-exports.sendCardsNotificationLost = functions.database.ref('/cards/lost/{key}').onWrite(event => {
+exports.sendCardsNotificationLost = functions.database.ref('/cards/lost/{key}').onCreate((change, context) => {
 	console.log('booting sendCardsNotification on lost....');
-	if (!event.data.exists()) {
-		console.log("No DeltaSnapshot returned for event we are Quiting Now!....");
+	if (!change.exists()) {
+		console.log("No DataSnapshot returned for event we are Quiting Now!....");
 		return
 	}
-	let data = event.data.val();
+	let data = change.val();
 	let owneruid = data.ownerUid;
 	console.log("ownerUID => " + owneruid);
 	let dt = JSON.stringify(data);
@@ -56,13 +56,13 @@ exports.sendCardsNotificationLost = functions.database.ref('/cards/lost/{key}').
 });
 
 //sending notificarions on found
-exports.sendCardsNotificationFound = functions.database.ref('/cards/found/{key}').onWrite(event => {
+exports.sendCardsNotificationFound = functions.database.ref('/cards/found/{key}').onCreate((event, context) => {
 	console.log('booting sendCardsNotification on found....');
-	if (!event.data.exists()) {
-		console.log("No DeltaSnapshot returned for event we are Quiting Now!....");
+	if (!event.exists()) {
+		console.log("No DataSnapshot returned for event we are Quiting Now!....");
 		return
 	}
-	let data = event.data.val();
+	let data = event.val();
 	let founderUid = data.founderUid;
 	console.log("founderUid => " + founderUid);
 	let dt = JSON.stringify(data);
@@ -108,13 +108,13 @@ exports.sendCardsNotificationFound = functions.database.ref('/cards/found/{key}'
 });
 
 // sending device notification on lost
-exports.sendDevicesNotificationLost = functions.database.ref('/devices/lost/{key}').onWrite(event => {
+exports.sendDevicesNotificationLost = functions.database.ref('/devices/lost/{key}').onCreate((event, context) => {
 	console.log('booting sendDevicesNotification on lost....');
-	if (!event.data.exists()) {
-		console.log("No DeltaSnapshot returned for event we are Quiting Now!....");
+	if (!event.exists()) {
+		console.log("No DataSnapshot returned for event we are Quiting Now!....");
 		return
 	}
-	let data = event.data.val();
+	let data = event.val();
 	let owneruid = data.ownerUid;
 	console.log("ownerUID => " + owneruid);
 	let dt = JSON.stringify(data);
@@ -159,13 +159,13 @@ exports.sendDevicesNotificationLost = functions.database.ref('/devices/lost/{key
 });
 
 //sending device notificarions on found
-exports.sendDevicesNotificationFound = functions.database.ref('/devices/found/{key}').onWrite(event => {
+exports.sendDevicesNotificationFound = functions.database.ref('/devices/found/{key}').onCreate((event, context) => {
 	console.log('booting sendDevicesNotification on found....');
-	if (!event.data.exists()) {
-		console.log("No DeltaSnapshot returned for event we are Quiting Now!....");
+	if (!event.exists()) {
+		console.log("No DataSnapshot returned for event we are Quiting Now!....");
 		return
 	}
-	let data = event.data.val();
+	let data = event.val();
 	let founderUid = data.founderUid;
 	console.log("founderUid => " + founderUid);
 	let dt = JSON.stringify(data);
@@ -211,13 +211,13 @@ exports.sendDevicesNotificationFound = functions.database.ref('/devices/found/{k
 });
 
 // sending automobile notification on lost
-exports.sendAutomobileNotificationLost = functions.database.ref('/automobile/lost/{key}').onWrite(event => {
+exports.sendAutomobileNotificationLost = functions.database.ref('/automobile/lost/{key}').onCreate((event, context) => {
 	console.log('booting sendAutomobileNotification on lost....');
-	if (!event.data.exists()) {
-		console.log("No DeltaSnapshot returned for event we are Quiting Now!....");
+	if (!event.exists()) {
+		console.log("No DataSnapshot returned for event we are Quiting Now!....");
 		return
 	}
-	let data = event.data.val();
+	let data = event.val();
 	let owneruid = data.ownerUid;
 	console.log("ownerUID => " + owneruid);
 	let dt = JSON.stringify(data);
@@ -262,13 +262,13 @@ exports.sendAutomobileNotificationLost = functions.database.ref('/automobile/los
 });
 
 //sending automobile notificarions on found
-exports.sendAutomobileNotificationFound = functions.database.ref('/automobile/found/{key}').onWrite(event => {
+exports.sendAutomobileNotificationFound = functions.database.ref('/automobile/found/{key}').onCreate((event, context) => {
 	console.log('booting sendAutomobileNotification on found....');
-	if (!event.data.exists()) {
-		console.log("No DeltaSnapshot returned for event we are Quiting Now!....");
+	if (!event.exists()) {
+		console.log("No DataSnapshot returned for event we are Quiting Now!....");
 		return
 	}
-	let data = event.data.val();
+	let data = event.val();
 	let founderUid = data.founderUid;
 	console.log("founderUid => " + founderUid);
 	let dt = JSON.stringify(data);
